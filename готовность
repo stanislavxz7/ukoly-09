@@ -1,0 +1,69 @@
+public class Objednavka {
+
+    private String kodDokladu;
+    private int pocetKusu;
+    private double celkovaCena;
+
+    // Konstruktor
+    public Objednavka(String kodDokladu) {
+        this.kodDokladu = kodDokladu;
+        this.pocetKusu = 0;
+        this.celkovaCena = 0;
+    }
+
+    // Gettery
+    public String getKodDokladu() {
+        return kodDokladu;
+    }
+
+    public int getPocetKusu() {
+        return pocetKusu;
+    }
+
+    public double getCelkovaCena() {
+        return celkovaCena;
+    }
+
+    // Přidání zboží na doklad
+    public void pridejZbozi(int pocet, double cenaZaKus) {
+        pocetKusu += pocet;
+        celkovaCena += pocet * cenaZaKus;
+    }
+
+    // Průměrná cena jednoho kusu
+    public double prumernaCena() {
+        if (pocetKusu == 0) {
+            return 0;
+        }
+
+        return celkovaCena / pocetKusu;
+    }
+
+    // Celková cena po slevě
+    public double cenaPoSleve() {
+        if (celkovaCena > 3000) {
+            return celkovaCena * 0.92;
+        } else if (celkovaCena > 1000) {
+            return celkovaCena * 0.95;
+        } else {
+            return celkovaCena;
+        }
+    }
+
+    // Hlavní metoda
+    public static void main(String[] args) {
+        Objednavka objednavka = new Objednavka("OBJ001");
+
+        objednavka.pridejZbozi(3, 150);
+        objednavka.pridejZbozi(2, 400);
+        objednavka.pridejZbozi(5, 250);
+
+        System.out.println("Kod dokladu: " + objednavka.getKodDokladu());
+        System.out.println("Pocet kusu: " + objednavka.getPocetKusu());
+        System.out.println("Celkova cena: " + objednavka.getCelkovaCena() + " Kc");
+        System.out.println("Prumerna cena jednoho kusu: "
+                + objednavka.prumernaCena() + " Kc");
+        System.out.println("Cena po sleve: "
+                + objednavka.cenaPoSleve() + " Kc");
+    }
+}
